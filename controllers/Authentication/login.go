@@ -1,4 +1,6 @@
-package authentication
+// Controllers/Authentication/list.go
+
+package Authentication
 
 import (
 	"errors"

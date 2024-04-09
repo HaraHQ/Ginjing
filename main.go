@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	middleware "ginjing/Middleware"
-	"ginjing/controllers/Todo"
-	"ginjing/db"
+	"ginjing/Controllers/Todo"
+	"ginjing/DB"
+	"ginjing/Middleware"
 	"os"
 	"strings"
 
@@ -23,8 +23,9 @@ func main() {
 	if len(os.Args) > 1 {
 		if os.Args[1] == "migrate" {
 			fmt.Println("Migrating database to turso..")
-			db.Migrate()
+			DB.Migrate()
 			fmt.Println("Database migrated 👍.")
+			// } else if os.Args[1] == "iseng" {
 		} else {
 			fmt.Println(
 				strings.TrimSpace(
@@ -51,7 +52,7 @@ Accepted commands:
 		todoProtectedAPI := app.Party("/protected/todo")
 		{
 			todoProtectedAPI.Use(iris.Compression)
-			todoProtectedAPI.Use(middleware.AuthMiddleware)
+			todoProtectedAPI.Use(Middleware.AuthMiddleware)
 
 			todoProtectedAPI.Get("/", Todo.List)
 		}

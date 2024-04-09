@@ -1,11 +1,11 @@
-// controllers/Todo/create.go
+// controllers/todo/create.go
 
 package Todo
 
 import (
 	"database/sql"
 	"fmt"
-	"ginjing/structs"
+	"ginjing/Structs"
 	"os"
 
 	"github.com/kataras/iris/v12"
@@ -14,7 +14,7 @@ import (
 
 // Create handles creating a new todo
 func Create(ctx iris.Context) {
-	var t structs.Todo
+	var t Structs.Todo
 	err := ctx.ReadJSON(&t)
 
 	if err != nil {

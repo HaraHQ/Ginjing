@@ -1,12 +1,12 @@
-// controllers/Todo/list.go
+// Controllers/Todo/list.go
 
 package Todo
 
 import (
 	"encoding/json"
 	"fmt"
-	auth "ginjing/controllers/authentication"
-	"ginjing/structs"
+	"ginjing/Controllers/Authentication"
+	"ginjing/Structs"
 	"net/http"
 
 	"github.com/kataras/iris/v12"
@@ -15,7 +15,7 @@ import (
 // List handles listing of todos
 func List(ctx iris.Context) {
 	userJSON := ctx.Values().Get("user").([]byte)
-	var user auth.JwtBody
+	var user Authentication.JwtBody
 	errz := json.Unmarshal(userJSON, &user)
 	if errz != nil {
 		fmt.Println("Error unmarshalling JSON:", errz)
@@ -24,14 +24,14 @@ func List(ctx iris.Context) {
 
 	// ------------------
 
-	getAuthToken, err := auth.Login("admin", "admin")
+	getAuthToken, err := Authentication.Login("admin", "admin")
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
 	fmt.Printf("User auth is: %s.\n", *getAuthToken)
 
-	verifyingToken, err := auth.VerifyToken(*getAuthToken)
+	verifyingToken, err := Authentication.VerifyToken(*getAuthToken)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -56,7 +56,7 @@ func List(ctx iris.Context) {
 	defer response.Body.Close()
 
 	// Read the response body
-	var todos []structs.Todo
+	var todos []Structs.Todo
 	if err := json.NewDecoder(response.Body).Decode(&todos); err != nil {
 		fmt.Println("Error decoding JSON:", err)
 		return

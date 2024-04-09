@@ -1,8 +1,8 @@
-package middleware
+package Middleware
 
 import (
 	"encoding/json"
-	auth "ginjing/controllers/authentication"
+	"ginjing/Controllers/Authentication"
 	"strings"
 
 	"github.com/kataras/iris/v12"
@@ -26,7 +26,7 @@ func AuthMiddleware(ctx iris.Context) {
 	}
 
 	// Verify token
-	verifyingToken, err := auth.VerifyToken(tokenParts[1])
+	verifyingToken, err := Authentication.VerifyToken(tokenParts[1])
 	if err != nil {
 		ctx.StatusCode(iris.StatusInternalServerError)
 		ctx.JSON(map[string]string{"error": "failed to verify token"})

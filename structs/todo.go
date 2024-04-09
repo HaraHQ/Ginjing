@@ -1,4 +1,4 @@
-package structs
+package Structs
 
 type Todo struct {
 	UserId    int    `json:"userId"`
